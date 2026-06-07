@@ -24,7 +24,7 @@ class DetalleVoluntariado extends StatefulWidget {
 class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
   final List<Map<String, dynamic>> _turnosSeleccionados = [];
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   String _obtenerImagenPorTipo(String? tipoRecibido) {
@@ -35,6 +35,9 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
 
     final String tipo = (tipoRecibido ?? '').trim();
 
+    // Imágenes del header
+    // cada tipo de voluntariado tiene una imagen distinta que representa en general a la categoría de voluntariado
+    // las imágenes han sido buscadas/elegidas de la página web de imgs/vídeos unsplash
     switch (tipo) {
       case 'Social':
         return "https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?auto=format&fit=crop&w=800&q=80";
@@ -94,12 +97,11 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
     final String tipoActual = widget.data['tipo_voluntariado'] ?? 'General';
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo limpio consistente
+      backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
           CustomScrollView(
             slivers: [
-              // BARRAS SUPERIORES CON GRADIENTE DE LECTURA PROTECTOR
               SliverAppBar(
                 expandedHeight: 240,
                 pinned: true,
@@ -141,7 +143,6 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
                         _obtenerImagenPorTipo(tipoActual),
                         fit: BoxFit.cover,
                       ),
-                      // Capa sombreada superior e inferior para mejorar contraste de iconos y títulos
                       const DecoratedBox(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -160,19 +161,13 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
                 ),
               ),
 
-              // CUERPO CENTRAL DE LA CAUSA
+              // Cuerpo central del voluntariado
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    16,
-                    20,
-                    16,
-                    140,
-                  ), // Amplio margen inferior anti-solapamiento
+                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 140),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Tipo e Identidad
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -230,7 +225,7 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
                       ),
                       const SizedBox(height: 20),
 
-                      // DETALLES AGRUPADOS EN TARJETAS PREMIUM
+                      // Detalles agrupados en tarjetas
                       _buildCardSeccion(
                         "Descripción",
                         widget.data['descripcion'] ?? '',
@@ -247,7 +242,7 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
                         Icons.location_on_outlined,
                       ),
 
-                      // BLOQUE DE CONTACTO ESTILIZADO
+                      // Bloque/apartado para la sección de contactos
                       const Padding(
                         padding: EdgeInsets.only(left: 4, top: 10, bottom: 12),
                         child: Text(
@@ -300,7 +295,6 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
                       const Divider(color: Colors.black12),
                       const SizedBox(height: 12),
 
-                      // TÍTULO DE TURNOS SECCIONAL
                       Text(
                         widget.modoVistaInscrito
                             ? "Mis turnos inscritos"
@@ -320,7 +314,6 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
                       ),
                       const SizedBox(height: 16),
 
-                      // CONTROLADOR DE LISTA DE TURNOS INTERACTIVOS
                       widget.modoVistaInscrito
                           ? _buildListaTurnosInscritos()
                           : _buildSelectorTurnos(),
@@ -331,14 +324,11 @@ class _DetalleVoluntariadoState extends State<DetalleVoluntariado> {
             ],
           ),
 
-          // PANEL FLOTANTE INFERIOR DINÁMICO
           if (!widget.modoVistaInscrito) _buildBotonFlotante(),
         ],
       ),
     );
   }
-
-  // --- COMPONENTES AUXILIARES REDISEÑADOS ---
 
   Widget _buildCardSeccion(String titulo, String contenido, IconData icono) {
     if (contenido.isEmpty) return const SizedBox.shrink();

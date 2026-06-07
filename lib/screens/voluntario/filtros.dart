@@ -23,7 +23,7 @@ class _ModalFiltrosState extends State<ModalFiltros> {
   late String temporalOrden;
   late double temporalDistancia;
 
-  // El color azul que estás usando en el botón aplicar
+  // Color Nexus
   final Color colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
@@ -34,7 +34,6 @@ class _ModalFiltrosState extends State<ModalFiltros> {
     temporalDistancia = widget.distanciaMax;
   }
 
-  // 🌟 Widget auxiliar actualizado para títulos de sección más modernos
   Widget _seccionTitulo(String titulo, IconData icono) {
     return Padding(
       padding: const EdgeInsets.only(top: 15, bottom: 12),
@@ -69,7 +68,6 @@ class _ModalFiltrosState extends State<ModalFiltros> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Línea superior de arrastre estilizada
             Center(
               child: Container(
                 width: 45,
@@ -82,7 +80,6 @@ class _ModalFiltrosState extends State<ModalFiltros> {
             ),
             const SizedBox(height: 12),
 
-            // Encabezado con título principal
             const Center(
               child: Text(
                 "Filtros de búsqueda",
@@ -96,10 +93,10 @@ class _ModalFiltrosState extends State<ModalFiltros> {
             const SizedBox(height: 10),
             const Divider(color: Colors.black12, thickness: 1),
 
-            // --- SECCIÓN: ORDENAR POR ---
+            // Ordenar por
             _seccionTitulo("Ordenar por", Icons.sort_rounded),
             DropdownButtonFormField<String>(
-              initialValue: temporalOrden, // Cambiado initialValue por value
+              initialValue: temporalOrden,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -109,7 +106,7 @@ class _ModalFiltrosState extends State<ModalFiltros> {
                 fillColor: Colors.grey[50],
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none, // Quitamos el borde negro tosco
+                  borderSide: BorderSide.none,
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -131,7 +128,7 @@ class _ModalFiltrosState extends State<ModalFiltros> {
 
             const SizedBox(height: 15),
 
-            // --- SECCIÓN: DISTANCIA ---
+            // Distancia
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -175,13 +172,12 @@ class _ModalFiltrosState extends State<ModalFiltros> {
 
             const SizedBox(height: 10),
 
-            // --- SECCIÓN: TIPO DE VOLUNTARIADO (CHIPS DINÁMICOS) ---
+            // Tipo de voluntariado (chips dinámicos)
             _seccionTitulo("Categoría de voluntariado", Icons.category_rounded),
 
-            // 🌟 El cambio estético más importante: Wrap de FilterChips en lugar de Checkboxes
             Wrap(
-              spacing: 8.0, // Espacio horizontal entre chips
-              runSpacing: 4.0, // Espacio vertical entre líneas de chips
+              spacing: 8.0,
+              runSpacing: 4.0,
               children: widget.todosLosTipos.map((tipo) {
                 final bool seleccionado = temporalSeleccionados.contains(tipo);
                 return FilterChip(
@@ -218,7 +214,7 @@ class _ModalFiltrosState extends State<ModalFiltros> {
 
             const SizedBox(height: 35),
 
-            // --- BOTÓN APLICAR ESTILIZADO ---
+            // Botón que aplica los filtros
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(52),

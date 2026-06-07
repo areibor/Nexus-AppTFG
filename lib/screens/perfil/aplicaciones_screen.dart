@@ -35,7 +35,7 @@ class _AplicacionesScreenState extends State<AplicacionesScreen> {
     final String? uid = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo limpio premium
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Mis Inscripciones",
@@ -47,7 +47,6 @@ class _AplicacionesScreenState extends State<AplicacionesScreen> {
         foregroundColor: Colors.black87,
         actions: [
           IconButton(
-            // Icono tune_rounded para guardar coherencia visual con la Home
             icon: Icon(
               Icons.tune_rounded,
               color: _filtrosEstado.isNotEmpty ? Colors.black : Colors.black,
@@ -292,7 +291,6 @@ class _AplicacionesScreenState extends State<AplicacionesScreen> {
                         urlImagen = userData['foto_perfil'];
                       }
 
-                      // 🌟 AVATAR REDONDO COHERENTE PREMIUM
                       return Container(
                         width: 48,
                         height: 48,
@@ -367,7 +365,6 @@ class _AplicacionesScreenState extends State<AplicacionesScreen> {
                       ),
                     ],
                   ),
-                  // 🌟 ETIQUETA DE ESTADO REESTILIZADA EN FORMATO BURBUJA TRASLÚCIDA
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,

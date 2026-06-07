@@ -25,7 +25,7 @@ class _FormularioInscripcionScreenState
   final _formKey = GlobalKey<FormState>();
   bool _mostrarErrores = false;
 
-  // I. Información Personal
+  // Info personal
   final _nombreController = TextEditingController();
   String _tipoId = 'DNI';
   final _idController = TextEditingController();
@@ -34,31 +34,31 @@ class _FormularioInscripcionScreenState
   final _emailController = TextEditingController();
   final _ciudadController = TextEditingController();
 
-  // II. Participación
+  // Participación
   String? _disponibilidad;
   String? _transporte;
   String? _compromiso;
 
-  // III. Perfil
+  // Perfil
   final _motivacionController = TextEditingController();
   final _experienciaController = TextEditingController();
   final _habilidadesController = TextEditingController();
 
   final List<Map<String, dynamic>> _idiomasSeleccionados = [];
 
-  // IV. Logística
+  // Logística
   final _nombreEmergenciaController = TextEditingController();
   final _telEmergenciaController = TextEditingController();
   final _medicoController = TextEditingController();
   String? _tallaPrenda;
 
-  // V. Autorizaciones
+  // Autorizaciones
   bool _aceptaPrivacidad = false;
   bool _aceptaImagen = false;
   bool _certificadoDelitos = false;
   bool _declaracionVeracidad = false;
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
@@ -193,8 +193,8 @@ class _FormularioInscripcionScreenState
       await batch.commit();
 
       if (!mounted) return;
-      Navigator.pop(context); // Cierra indicador de carga
-      Navigator.pop(context); // Regresa a la vista anterior
+      Navigator.pop(context); // Para cerrar el indicador de carga
+      Navigator.pop(context); // Para volver a la vista anterior
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -213,7 +213,7 @@ class _FormularioInscripcionScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo premium consistente
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Formulario de Inscripción",
@@ -243,7 +243,7 @@ class _FormularioInscripcionScreenState
                 ),
               ),
 
-              // I. INFORMACIÓN PERSONAL
+              // Info personal
               _buildSubtituloSeccion("INFORMACIÓN PERSONAL"),
               _buildCardContenedor([
                 _buildTextField(
@@ -339,7 +339,7 @@ class _FormularioInscripcionScreenState
 
               const SizedBox(height: 24),
 
-              // II. REQUISITOS DE PARTICIPACIÓN
+              // Requisitos
               _buildSubtituloSeccion("PARTICIPACIÓN"),
               _buildCardContenedor([
                 _buildRadioPregunta(
@@ -366,7 +366,7 @@ class _FormularioInscripcionScreenState
 
               const SizedBox(height: 24),
 
-              // III. PERFIL DEL VOLUNTARIO
+              // Perfil
               _buildSubtituloSeccion("PERFIL DEL VOLUNTARIO"),
               _buildCardContenedor([
                 _buildTextField(
@@ -420,7 +420,7 @@ class _FormularioInscripcionScreenState
 
               const SizedBox(height: 24),
 
-              // IV. LOGÍSTICA Y SALUD
+              // Logística y salud
               _buildSubtituloSeccion("LOGÍSTICA Y SALUD"),
               _buildCardContenedor([
                 _buildTextField(
@@ -445,7 +445,7 @@ class _FormularioInscripcionScreenState
 
               const SizedBox(height: 24),
 
-              // V. AUTORIZACIONES Y DECLARACIONES
+              // Autorizaciones
               _buildSubtituloSeccion("AUTORIZACIONES Y PRIVACIDAD"),
               _buildCardContenedor([
                 _buildCheckbox(
@@ -472,7 +472,7 @@ class _FormularioInscripcionScreenState
 
               const SizedBox(height: 32),
 
-              // BOTÓN PRINCIPAL DE ENVÍO
+              // Botón para enviar
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(52),
@@ -499,8 +499,6 @@ class _FormularioInscripcionScreenState
       ),
     );
   }
-
-  // --- MÉTODOS COMPONENTES REDISEÑADOS ---
 
   Widget _buildSubtituloSeccion(String titulo) {
     return Padding(
@@ -550,7 +548,6 @@ class _FormularioInscripcionScreenState
         inputFormatters: formatters,
         style: const TextStyle(fontSize: 14, color: Colors.black87),
         decoration: InputDecoration(
-          // Forzamos un hintText y reducimos el tamaño tipográfico general para que todo quepa de sobra
           labelText: label,
           hintText: hintText ?? label,
           labelStyle: TextStyle(color: _colorCorporativo, fontSize: 13),
@@ -682,16 +679,10 @@ class _FormularioInscripcionScreenState
     padding: const EdgeInsets.symmetric(vertical: 8),
     child: DropdownButtonFormField<String>(
       initialValue: _tallaPrenda,
-      style: const TextStyle(
-        fontSize: 14,
-        color: Colors.black87,
-      ), // 🌟 Forzar letra interna pequeña
+      style: const TextStyle(fontSize: 14, color: Colors.black87),
       decoration: InputDecoration(
         labelText: "Talla de equipación / prenda",
-        labelStyle: TextStyle(
-          color: _colorCorporativo,
-          fontSize: 13,
-        ), // 🌟 Letra pequeña en el título
+        labelStyle: TextStyle(color: _colorCorporativo, fontSize: 13),
         prefixIcon: Icon(
           Icons.checkroom_rounded,
           color: _colorCorporativo,
@@ -702,7 +693,7 @@ class _FormularioInscripcionScreenState
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 12,
-        ), // 🌟 Relleno premium unificado
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.black12),
@@ -722,7 +713,7 @@ class _FormularioInscripcionScreenState
               value: t,
               child: Text(t, style: const TextStyle(fontSize: 14)),
             ),
-          ) // 🌟 Ítems pequeños
+          )
           .toList(),
       onChanged: (v) => setState(() => _tallaPrenda = v),
     ),

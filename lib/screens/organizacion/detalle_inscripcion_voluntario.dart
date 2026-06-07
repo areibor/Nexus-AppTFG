@@ -17,7 +17,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
     required this.turnosActuales,
   });
 
-  // Color corporativo institucional de la app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   Future<void> _actualizarEstadoMultiple(
@@ -62,8 +62,8 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
       await batch.commit();
 
       if (!context.mounted) return;
-      Navigator.pop(context); // Quitar cargando
-      Navigator.pop(context); // Volver atrás
+      Navigator.pop(context); // Quita el cargando
+      Navigator.pop(context); // Para volver atrás
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -112,7 +112,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 1. SECCIÓN PRINCIPAL: TURNOS SOLICITADOS
+                // Turnos solicitados
                 _buildTituloSeccion("TURNOS SOLICITADOS"),
                 ...turnosSolicitados.map((t) {
                   return Container(
@@ -148,7 +148,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                // 2. DISPONIBILIDAD Y COMPROMISO
+                // Disponibilidad y compromiso
                 _buildFichaDatos("DISPONIBILIDAD Y COMPROMISO", [
                   _buildFilaInfo(
                     "Disponibilidad",
@@ -164,7 +164,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                   ),
                 ]),
 
-                // 3. AUTORIZACIONES
+                // Autorizaciones
                 _buildFichaDatos("AUTORIZACIONES Y DOCUMENTACIÓN", [
                   _buildFilaInfo(
                     "Cesión de Imagen",
@@ -178,7 +178,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                   ),
                 ]),
 
-                // 4. INFORMACIÓN PERSONAL
+                // Info personal
                 _buildFichaDatos("INFORMACIÓN PERSONAL", [
                   _buildFilaInfo("Nombre Completo", personal['nombre']),
                   _buildFilaInfo(
@@ -190,7 +190,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                   _buildFilaInfo("Municipio / Ciudad", personal['ciudad']),
                 ]),
 
-                // 5. PERFIL Y MOTIVACIÓN
+                // Perfil y motivación
                 _buildFichaDatos("PERFIL Y MOTIVACIÓN", [
                   _buildFilaInfo(
                     "Motivación principal",
@@ -209,8 +209,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                   ),
                 ]),
 
-                // 6. IDIOMAS DECLARADOS
-                // 6. IDIOMAS DECLARADOS (Optimizado para corregir el desfase de image_e6c728.png)
+                // Idiomas que han sido declarados por el voluntario/a
                 if (idiomas.isNotEmpty) ...[
                   _buildTituloSeccion("IDIOMAS DECLARADOS"),
                   Container(
@@ -231,8 +230,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment
-                                .start, // Alineación superior del icono
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 2),
@@ -244,12 +242,10 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                               ),
                               const SizedBox(width: 12),
 
-                              // 🌟 CLAVE: Estructura vertical expandible para que los niveles caigan abajo limpios
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // Nombre del idioma arriba en negrita y tipografía capitalizada
                                     Text(
                                       (i['nombre'] ?? 'Idioma')
                                           .toString()
@@ -261,10 +257,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                                         letterSpacing: -0.1,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ), // Separador sutil
-                                    // 🌟 NIVELES ABAJO: Ya no colisionan horizontalmente
+                                    const SizedBox(height: 4),
                                     Text(
                                       "Lectura [${i['lectura']}]   •   Escucha [${i['escucha']}]   •   Habla [${i['habla']}]",
                                       style: TextStyle(
@@ -284,7 +277,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                   ),
                 ],
 
-                // 7. SALUD Y LOGÍSTICA
+                // Salud y logística
                 _buildFichaDatos("SALUD Y LOGÍSTICA", [
                   _buildFilaInfo(
                     "Contacto de Emergencia",
@@ -298,7 +291,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                   _buildFilaInfo("Talla de Camiseta", logistica['talla']),
                 ]),
 
-                // 8. HISTORIAL DE CONFIRMACIÓN
+                // Estado de la inscrpción
                 _buildFichaDatos("ESTADO DE LA INSCRIPCIÓN", [
                   _buildFilaInfo(
                     "Estado Actual",
@@ -316,7 +309,6 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
                     String hora = fecha.hour.toString().padLeft(2, '0');
                     String minuto = fecha.minute.toString().padLeft(2, '0');
 
-                    // Retornamos la composición final en formato español estándar
                     return "$dia-$mes-$anio $hora:$minuto";
                   }()),
                 ]),
@@ -324,7 +316,8 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
             ),
           ),
 
-          // BOTONES FIJOS ABAJO (ZÓCALO ACCESIBLE)
+          // Botones RECHAZAR y ACEPTAR
+          // estos está abajo, fijos (zócalo)
           if (estadoActual == 'pendiente')
             Positioned(
               bottom: 0,
@@ -393,8 +386,7 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
     );
   }
 
-  // --- COMPONENTES AUXILIARES DE MAQUETACIÓN ---
-
+  // Componentes auxiliares
   Widget _buildTituloSeccion(String titulo) {
     return Padding(
       padding: const EdgeInsets.only(left: 4, bottom: 10),
@@ -471,7 +463,6 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
       );
     }
 
-    // Fila estándar clave-valor optimizada horizontalmente
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -490,10 +481,8 @@ class DetalleInscripcionVoluntario extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          // El contenedor del valor toma el espacio restante
           Flexible(
-            flex:
-                3, // Damos un poco más de peso al valor para que quepan mejor los textos
+            flex: 3,
             child: DefaultTextStyle(
               style: const TextStyle(height: 1.2),
               softWrap: true,

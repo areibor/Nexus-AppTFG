@@ -28,7 +28,7 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
     'Deportivo',
   ];
 
-  // Definimos el color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
@@ -66,12 +66,11 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo limpio premium
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🌟 NUEVO ENCABEZADO ESTILIZADO DE BIENVENIDA
             Padding(
               padding: const EdgeInsets.only(
                 left: 20,
@@ -91,7 +90,7 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
               ),
             ),
 
-            // BARRA SUPERIOR REESTILIZADA: Buscador y Filtros integrados
+            // Barra de búsqueda + filtrado
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
@@ -125,7 +124,6 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  // Botón de filtros flotante estilizado
                   InkWell(
                     onTap: () => _mostrarFiltros(context),
                     borderRadius: BorderRadius.circular(16),
@@ -150,7 +148,7 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
                         ),
                       ),
                       child: Icon(
-                        Icons.tune_rounded, // Icono más moderno para filtros
+                        Icons.tune_rounded,
                         color:
                             _tiposSeleccionados.isNotEmpty ||
                                 _orden != "reciente" ||
@@ -164,7 +162,7 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
               ),
             ),
 
-            // --- SECCIÓN ACTUALIZADA: CHIPS DE FILTROS ACTIVO PREMIUM ---
+            // Chips de filtros activo
             if (_tiposSeleccionados.isNotEmpty ||
                 _orden != "reciente" ||
                 _distanciaMax < 100)
@@ -206,7 +204,6 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
                       ),
                     ),
 
-                    // 🌟 CHIP DE ORDENACIÓN REESTILIZADO (Corrige el naranja de image_daf0e7.png)
                     if (_orden != "reciente")
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
@@ -217,35 +214,30 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
                                 : "Más recientes",
                           ),
                           labelStyle: TextStyle(
-                            color: _colorCorporativo, // Letras corporativas
+                            color: _colorCorporativo,
                             fontWeight: FontWeight.w600,
                             fontSize: 13,
                           ),
                           side: BorderSide(
-                            color: _colorCorporativo
-                                .withValues(), // Borde coordinado suave
+                            color: _colorCorporativo.withValues(),
                             width: 1,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                           onDeleted: () => setState(() => _orden = "reciente"),
-                          deleteIconColor:
-                              _colorCorporativo, // Icono X corporativo
+                          deleteIconColor: _colorCorporativo,
                         ),
                       ),
 
-                    // 🌟 CHIP DE DISTANCIA REESTILIZADO (Corrige el verde de image_daf0e7.png)
                     if (_distanciaMax < 100)
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: InputChip(
                           avatar: Icon(
-                            Icons
-                                .location_on_rounded, // Icono relleno más moderno
+                            Icons.location_on_rounded,
                             size: 14,
-                            color:
-                                _colorCorporativo, // Pin de mapa ahora corporativo
+                            color: _colorCorporativo,
                           ),
                           label: Text("< ${_distanciaMax.toInt()} km"),
                           labelStyle: TextStyle(
@@ -266,7 +258,6 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
                         ),
                       ),
 
-                    // CHIPS DE CATEGORÍAS (Mantenidos limpios y corporativos)
                     ..._tiposSeleccionados.map(
                       (tipo) => Padding(
                         padding: const EdgeInsets.only(right: 6),
@@ -296,7 +287,6 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
 
             const SizedBox(height: 8),
 
-            // LISTA FILTRADA DE VOLUNTARIADOS
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
@@ -446,7 +436,6 @@ class _HomeVoluntarioState extends State<HomeVoluntario> {
       ),
     );
 
-    // 🌟 LA REPARACIÓN EXCELENTE: El condicional "if (mounted)" frena en seco el error al aplicar los filtros
     if (resultado != null && mounted) {
       setState(() {
         _tiposSeleccionados = resultado['tipos'];

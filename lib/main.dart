@@ -29,7 +29,7 @@ class VoluntariadoApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      // Si hay sesión iniciada va a MainScreen, si no a AuthScreen
+      // Si la sesión ya ha sido iniciado por el usuario va a MainScreen, si no a AuthScreen
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -38,11 +38,11 @@ class VoluntariadoApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           }
-          // Si snapshot.hasData es true, es que el login fue exitoso
+          // Si snapshot.hasData es true, es que el login ha hecho su función
           if (snapshot.hasData) {
             return const MainScreen();
           }
-          // Si no, lo mantenemos en el login
+          // Si no, mantenemos al usuario en el login
           return const AuthScreen();
         },
       ),

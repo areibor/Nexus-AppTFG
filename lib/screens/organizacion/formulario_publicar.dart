@@ -49,7 +49,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
     'Deportivo',
   ];
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
@@ -130,7 +130,6 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
       hourLabelText: "Hora",
       minuteLabelText: "Minuto",
       builder: (BuildContext context, Widget? child) {
-        // Mantenemos tu envoltura forzada al estilo de reloj de 24 horas europeo
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
           child: child!,
@@ -264,7 +263,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
       await Future.delayed(const Duration(milliseconds: 500));
 
       if (!mounted) return;
-      Navigator.of(context, rootNavigator: true).pop(); // Quitar cargando
+      Navigator.of(context, rootNavigator: true).pop();
 
       _limpiarFormulario();
 
@@ -312,7 +311,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50], // Fondo unificado premium
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: const Text(
           "Nueva Publicación",
@@ -340,7 +339,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
               ),
             ),
 
-            // I. DETALLES DE LA CAUSA
+            // Detalles del voluntariado
             _buildSubtituloSeccion("DETALLE DEL VOLUNTARIADO"),
             _buildCardContenedor([
               _buildTextField(
@@ -413,7 +412,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
             const SizedBox(height: 24),
 
-            // II. UBICACIÓN
+            // Ubicación
             _buildSubtituloSeccion("¿DÓNDE SE REALIZA?"),
             _buildCardContenedor([
               _buildTextField(
@@ -430,7 +429,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
             const SizedBox(height: 24),
 
-            // III. CONTACTO Y ENLACES
+            // Contacto
             _buildSubtituloSeccion("CONTACTO Y REDES SOCIALES"),
             _buildCardContenedor([
               _buildTextField(
@@ -470,7 +469,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
             const SizedBox(height: 24),
 
-            // IV. PLANIFICACIÓN DE TURNOS
+            // Turnos
             _buildSubtituloSeccion("TURNOS Y CAPACIDAD"),
             _buildCardContenedor([
               // Selectores de fecha y hora horizontales
@@ -549,17 +548,12 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
               const SizedBox(height: 16),
 
-              // Fila de asignación de cupo y botón Añadir
               Wrap(
-                alignment: WrapAlignment
-                    .spaceBetween, // 🌟 Distribuye el espacio entre los bloques si caben en una línea
-                crossAxisAlignment: WrapCrossAlignment
-                    .center, // 🌟 Mantiene la alineación vertical de los elementos
-                spacing: 8, // Espacio horizontal entre elementos
-                runSpacing:
-                    12, // 🌟 Espacio vertical de separación si el botón salta a la línea de abajo
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8,
+                runSpacing: 12,
                 children: [
-                  // Agrupamos la zona del contador (Cupo + botones) para que mantengan la cohesión si hay un salto
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -573,7 +567,6 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
                       ),
                       const SizedBox(width: 8),
 
-                      // Botón Menos
                       IconButton(
                         constraints: const BoxConstraints(),
                         padding: const EdgeInsets.all(4),
@@ -595,7 +588,6 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
                       const SizedBox(width: 6),
 
-                      // Caja de texto de cantidad
                       SizedBox(
                         width: 48,
                         height: 34,
@@ -640,7 +632,6 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
                       const SizedBox(width: 6),
 
-                      // Botón Más
                       IconButton(
                         constraints: const BoxConstraints(),
                         padding: const EdgeInsets.all(4),
@@ -660,7 +651,8 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
                     ],
                   ),
 
-                  // Botón Añadir Turno (Dará el salto abajo de forma limpia solo si no cabe al lado)
+                  // Botón añadir turno
+                  // si no cabe dará el salto hacia abajo (dif formatos de pantalla)
                   TextButton.icon(
                     onPressed: _agregarTurnoALista,
                     icon: const Icon(Icons.add_rounded, size: 16),
@@ -685,7 +677,6 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
                 ],
               ),
 
-              // Renderizado de turnos agregados de forma fluida
               if (_turnosAgregados.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 const Divider(color: Colors.black12),
@@ -737,7 +728,7 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
 
             const SizedBox(height: 32),
 
-            // BOTÓN PRINCIPAL DE ENVÍO FIRESTORE
+            // Botón que envía los datos a firestore
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(52),
@@ -763,8 +754,6 @@ class _FormularioPublicarScreenState extends State<FormularioPublicarScreen> {
       ),
     );
   }
-
-  // --- MÉTODOS AUXILIARES ---
 
   Widget _buildSubtituloSeccion(String titulo) {
     return Padding(

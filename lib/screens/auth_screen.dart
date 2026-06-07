@@ -19,7 +19,6 @@ class _AuthScreenState extends State<AuthScreen> {
   String _rolSeleccionado = 'Voluntario';
   bool _cargando = false;
 
-  // 🌟 NUEVO: Estado para controlar la visibilidad de la contraseña
   bool _ocultarPassword = true;
 
   @override
@@ -31,7 +30,7 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
-  // 🌟 NUEVO: Función nativa para recuperar la contraseña vía Firebase
+  // Función para recuperar la contraseña por/vía Firebase
   Future<void> _recuperarPassword() async {
     final email = _emailController.text.trim();
     if (email.isEmpty) {
@@ -323,8 +322,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: 16),
                         TextField(
                           controller: _passwordController,
-                          obscureText:
-                              _ocultarPassword, // 🌟 DINÁMICO: Cambia según el estado del ojo
+                          obscureText: _ocultarPassword,
                           style: const TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                             labelText: "Contraseña",
@@ -337,7 +335,6 @@ class _AuthScreenState extends State<AuthScreen> {
                               color: colorCorporativo,
                               size: 20,
                             ),
-                            // 🌟 NUEVO: Botón de visibilidad de contraseña
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _ocultarPassword

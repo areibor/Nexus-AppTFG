@@ -12,25 +12,25 @@ class MapaScreen extends StatefulWidget {
 }
 
 class _MapaScreenState extends State<MapaScreen> {
-  // Controlador para manipular la cámara del mapa
+  // Controlador para poder manipular la cámara del mapa
   GoogleMapController? _mapController;
 
-  // Estado de marcadores y selección
   final Set<Marker> _markers = {};
   Map<String, dynamic>? _selectedData;
   String? _selectedId;
 
   // Posición inicial por defecto (Valencia, España)
+  // para cuando el usuario no acepta al dispositivo que coja/use su ubicación
   final LatLng _initialPos = const LatLng(39.4697, -0.3773);
 
   @override
   void initState() {
     super.initState();
-    _determinarPosicion(); // Pedir permisos y centrar en el usuario
+    _determinarPosicion(); // Pedir los permisos de ubicación y centrar en el usuario
     _cargarMarcadores(); // Traer puntos desde Firebase
   }
 
-  /// Solicita permisos de GPS y mueve la cámara a la ubicación del usuario
+  /// Función que solicita permisos de GPS y mueve la cámara a la ubicación del usuario
   Future<void> _determinarPosicion() async {
     bool servicioHabilitado;
     LocationPermission permiso;
@@ -49,11 +49,11 @@ class _MapaScreenState extends State<MapaScreen> {
     Position position = await Geolocator.getCurrentPosition();
     LatLng userLatLng = LatLng(position.latitude, position.longitude);
 
-    // Mueve la cámara suavemente a la posición del voluntario
+    // Mueve la cámara a la posición del voluntario
     _mapController?.animateCamera(CameraUpdate.newLatLngZoom(userLatLng, 14.0));
   }
 
-  /// Obtiene los voluntariados de Firestore y crea los marcadores
+  /// Función para obtener los voluntariados de Firestore y crear los marcadores
   Future<void> _cargarMarcadores() async {
     try {
       final QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -65,7 +65,6 @@ class _MapaScreenState extends State<MapaScreen> {
       for (var doc in snapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
 
-        // Conversión segura de coordenadas (maneja int o double)
         final double lat = (data['latitud'] ?? 0.0).toDouble();
         final double lng = (data['longitud'] ?? 0.0).toDouble();
 
@@ -152,14 +151,9 @@ class _MapaScreenState extends State<MapaScreen> {
             alignment: Alignment.centerLeft,
             child: TextButton(
               style: TextButton.styleFrom(
-                padding: EdgeInsets
-                    .zero, // Elimina el espacio interno para que parezca texto puro
-                tapTargetSize: MaterialTapTargetSize
-                    .shrinkWrap, // Ajusta el área de toque al tamaño del texto
-                minimumSize: const Size(
-                  0,
-                  0,
-                ), // Permite que el botón sea tan pequeño como el texto
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                minimumSize: const Size(0, 0),
               ),
               onPressed: () => _navegarADetalle(data, id),
               child: const Text(
@@ -182,7 +176,6 @@ class _MapaScreenState extends State<MapaScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Capa 1: Mapa de Google
           GoogleMap(
             onMapCreated: (controller) => _mapController = controller,
             initialCameraPosition: CameraPosition(
@@ -190,14 +183,11 @@ class _MapaScreenState extends State<MapaScreen> {
               zoom: 12.0,
             ),
             markers: _markers,
-            myLocationEnabled: true, // Punto azul del usuario
+            myLocationEnabled: true,
             myLocationButtonEnabled: true,
-            onTap: (_) => setState(
-              () => _selectedData = null,
-            ), // Cierra panel al tocar el mapa
+            onTap: (_) => setState(() => _selectedData = null),
           ),
 
-          // Capa 2: Panel informativo (solo si hay algo seleccionado)
           if (_selectedData != null)
             Align(
               alignment: Alignment.bottomCenter,

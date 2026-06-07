@@ -14,13 +14,13 @@ class CuentaScreen extends StatefulWidget {
 class _CuentaScreenState extends State<CuentaScreen> {
   final user = FirebaseAuth.instance.currentUser;
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   void _cambiarPassword() {
     if (user?.email == null) return;
 
-    // 🌟 1. POP-UP DE CONFIRMACIÓN PREVIA (Evita envíos accidentales)
+    // Popup/ventana emergente para confirmar con el usuario que quiere restablecer la contraseña y no le ha dado por equivocación o sin querer
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -39,7 +39,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
             // Botón Cancelar
             TextButton(
               onPressed: () =>
-                  Navigator.pop(context), // Cierra el pop-up sin hacer nada
+                  Navigator.pop(context), // Cierra el popup sin hacer nada
               child: const Text(
                 "CANCELAR",
                 style: TextStyle(
@@ -51,7 +51,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
             // Botón Confirmar
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Cierra el pop-up de confirmación
+                Navigator.pop(context); // Cierra el popup de confirmación
                 _ejecutarEnvioCorreo(); // Ejecuta la lógica asíncrona de Firebase
               },
               child: const Text(
@@ -68,13 +68,12 @@ class _CuentaScreenState extends State<CuentaScreen> {
     );
   }
 
-  // 🌟 2. LÓGICA INTERNA ASÍNCRONA (Se ejecuta solo al pulsar CONFIRMAR)
+  // Función interna asíncrona (se ejecuta única y exclusivamente al pulsar CONFIRMAR)
   Future<void> _ejecutarEnvioCorreo() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: user!.email!);
       if (!mounted) return;
 
-      // Diálogo de éxito
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -104,7 +103,6 @@ class _CuentaScreenState extends State<CuentaScreen> {
     } catch (e) {
       if (!mounted) return;
 
-      // Diálogo de error
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -135,8 +133,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors
-          .grey[100], // Fondo limpio premium coincidente con Home y Perfil
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Configuración de cuenta",
@@ -173,7 +170,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             child: Column(
               children: [
-                // CONTENEDOR 1: EDITAR Y CONTRASEÑA
+                // Editar y contraseña
                 _buildContenedorGrupo([
                   _buildListTile(
                     icono: Icons.edit_note_rounded,
@@ -194,7 +191,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
                   ),
                 ]),
 
-                // CONTENEDOR 2: NOTIFICACIONES E IDIOMAS
+                // Notificaciones e idiomas
                 _buildContenedorGrupo([
                   _buildListTile(
                     icono: Icons.notifications_none_rounded,
@@ -217,7 +214,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
                   ),
                 ]),
 
-                // CONTENEDOR 3: ELIMINAR CUENTA (BLOQUE DE ACCIÓN DE PELIGRO)
+                // Eliminar cuenta
                 _buildContenedorGrupo([
                   _buildListTile(
                     icono: Icons.delete_forever_rounded,
@@ -234,8 +231,6 @@ class _CuentaScreenState extends State<CuentaScreen> {
     );
   }
 
-  // --- COMPONENTES DE DISEÑO OPTIMIZADOS ---
-
   Widget _buildContenedorGrupo(List<Widget> items) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -248,7 +243,6 @@ class _CuentaScreenState extends State<CuentaScreen> {
           if (index.isEven) {
             return items[index ~/ 2];
           } else {
-            // Indentación perfecta: El separador empieza donde empieza el texto de la opción
             return const Divider(
               height: 1,
               indent: 54,
@@ -282,7 +276,7 @@ class _CuentaScreenState extends State<CuentaScreen> {
         style: TextStyle(
           fontSize: 15,
           color: esRojo ? Colors.red : Colors.black87,
-          fontWeight: FontWeight.w600, // Un toque más marcado semibold moderno
+          fontWeight: FontWeight.w600,
         ),
       ),
       trailing: Icon(
@@ -293,8 +287,6 @@ class _CuentaScreenState extends State<CuentaScreen> {
       onTap: onTap,
     );
   }
-
-  // --- VENTANAS Y DIÁLOGOS ESTILIZADOS ---
 
   void _mostrarIdiomas(BuildContext context) {
     showModalBottomSheet(
@@ -377,8 +369,6 @@ class _CuentaScreenState extends State<CuentaScreen> {
             ),
 
             onPressed: () {
-              // Lógica para borrar usuario en Firebase Auth y Firestore
-
               Navigator.pop(context);
             },
 

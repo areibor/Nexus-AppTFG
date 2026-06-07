@@ -10,23 +10,22 @@ class NotificacionesScreen extends StatefulWidget {
 }
 
 class _NotificacionesScreenState extends State<NotificacionesScreen> {
-  // Apartado 1 (Inscripciones para Org / Estado Aplicación para Voluntario)
+  // Para el rol Organización
   bool appAceptado = true;
   bool emailAceptado = false;
 
-  // Apartado 2 (Solo para Voluntarios)
+  // Para el rol Voluntario
   bool appNuevos = true;
   bool emailNuevos = true;
   String frecuencia = "Semanalmente";
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Colors.grey[100], // Fondo premium consistente con toda la app
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Notificaciones",
@@ -42,7 +41,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- SECCIÓN 1: INSCRIPCIONES O ESTADO ---
+            // Inscripciones o estado
             _buildTitulo(
               widget.esOrganizacion
                   ? "NUEVAS INSCRIPCIONES"
@@ -61,7 +60,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
               ),
             ]),
 
-            // --- SECCIÓN 2: SOLO PARA VOLUNTARIOS ---
+            // Solo para el rol Voluntario
             if (!widget.esOrganizacion) ...[
               const SizedBox(height: 25),
               _buildTitulo("NUEVOS VOLUNTARIADOS"),
@@ -83,7 +82,6 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                   color: Colors.black12,
                 ),
 
-                // Selector de frecuencia reestilizado y acolchado elegantemente
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -109,8 +107,7 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                         ),
                         child: DropdownButton<String>(
                           value: frecuencia,
-                          underline:
-                              const SizedBox(), // Eliminamos la línea inferior tosca de Android
+                          underline: const SizedBox(),
                           style: TextStyle(
                             color: _colorCorporativo,
                             fontWeight: FontWeight.bold,
@@ -140,8 +137,6 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
     );
   }
 
-  // --- COMPONENTES AUXILIARES DE DISEÑO ---
-
   Widget _buildTitulo(String t) => Padding(
     padding: const EdgeInsets.only(left: 4, bottom: 10),
     child: Text(
@@ -167,7 +162,6 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
           if (index.isEven) {
             return children[index ~/ 2];
           } else {
-            // Inserta divisores limpios automáticamente solo entre elementos
             return const Divider(
               height: 1,
               indent: 16,
@@ -190,8 +184,8 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
             color: Colors.black87,
           ),
         ),
-        activeThumbColor: Colors.white, // Color de la bolita interna activa
-        activeTrackColor: _colorCorporativo, // Color de fondo del switch activo
+        activeThumbColor: Colors.white,
+        activeTrackColor: _colorCorporativo,
         inactiveThumbColor: Colors.grey[400],
         inactiveTrackColor: Colors.grey[200],
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),

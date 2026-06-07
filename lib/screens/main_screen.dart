@@ -71,7 +71,6 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  // MODIFICADO: Ahora extrae un mapa con el rol y el estado de la verificación
   Future<Map<String, dynamic>> _obtenerDatosUsuario() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return {'rol': 'Voluntario', 'estaVerificado': false};
@@ -98,7 +97,6 @@ class _MainScreenState extends State<MainScreen> {
           );
         }
 
-        // Recuperamos los datos de seguridad de forma segura
         final datos =
             snapshot.data ?? {'rol': 'Voluntario', 'estaVerificado': false};
         final bool esOrg = datos['rol'] == 'Organización';
@@ -120,10 +118,9 @@ class _MainScreenState extends State<MainScreen> {
           body: paginas[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedIndex,
-            // NUEVO FILTRO INTERCEPTOR EN EL TAP
             onTap: (index) {
               if (esOrg && index == 1 && !estaVerificado) {
-                // Alerta emergente en lugar de navegar a la pantalla de publicación
+                // Alerta/ventana emergente para avisar que la cuenta está en revisión
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(

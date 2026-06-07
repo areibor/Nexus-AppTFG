@@ -42,7 +42,7 @@ class MisPublicacionesScreen extends StatelessWidget {
     final uid = FirebaseAuth.instance.currentUser?.uid;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo unificado premium de la app
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Mis Publicaciones",
@@ -111,7 +111,6 @@ class MisPublicacionesScreen extends StatelessWidget {
                 child: Dismissible(
                   key: Key(idReal),
                   direction: DismissDirection.startToEnd,
-                  // 🌟 REDISEÑO: Fondo de eliminación adaptado perfectamente al radio del contenedor
                   background: Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -205,7 +204,6 @@ class MisPublicacionesScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                         child: Row(
                           children: [
-                            // Contenedor del Icono en formato pastel premium
                             Container(
                               width: 44,
                               height: 44,
@@ -221,7 +219,6 @@ class MisPublicacionesScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 14),
 
-                            // Textos de la publicación organizados con aire visual
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

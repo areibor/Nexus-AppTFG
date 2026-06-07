@@ -13,7 +13,7 @@ class TarjetaVoluntariado extends StatelessWidget {
     required this.idPublicacion,
   });
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   String _obtenerFechaRelativa(Timestamp? timestamp) {
@@ -102,7 +102,6 @@ class TarjetaVoluntariado extends StatelessWidget {
           ),
         ],
       ),
-      // Envolvemos el interior en un InkWell con bordes redondeados para un feedback visual premium al pulsar
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () => Navigator.push(
@@ -117,7 +116,7 @@ class TarjetaVoluntariado extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- PARTE SUPERIOR: AVATAR, TÍTULO Y ENTIDAD ---
+              // Parte superior --> foto perfil (pfp) de la entidad, título y nombre de la entidad
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -133,8 +132,6 @@ class TarjetaVoluntariado extends StatelessWidget {
                             snapshot.data!.data() as Map<String, dynamic>;
                         urlImagen = userData['foto_perfil'];
                       }
-
-                      // 🌟 REDISEÑO: Imagen en formato circular premium
                       return Container(
                         width: 48,
                         height: 48,
@@ -204,7 +201,7 @@ class TarjetaVoluntariado extends StatelessWidget {
               const Divider(height: 1, color: Colors.black12),
               const SizedBox(height: 14),
 
-              // --- PARTE MEDIA: UBICACIÓN REESTILIZADA ---
+              // Parte media --> la ubicación formateada, es decir, barrio/municipio + Valencia (ej. Ruzafa, Valencia o Alfafar, Valencia)
               Row(
                 children: [
                   Icon(
@@ -229,11 +226,10 @@ class TarjetaVoluntariado extends StatelessWidget {
 
               const SizedBox(height: 14),
 
-              // --- PARTE INFERIOR: CATEGORÍA (IZQ) Y FECHA/FAVORITO (DER) ---
+              // Parte inferior --> etiqueta del tipo de voluntariado (a la izq) y tiempo relativo + icono/función de guardados (a la dcha)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Burbuja de categoría estilizada traslúcida coincidente con el resto de la app
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
@@ -254,7 +250,6 @@ class TarjetaVoluntariado extends StatelessWidget {
                     ),
                   ),
 
-                  // Contenedor derecho: tiempo relativo y botón favoritos agrupados de forma limpia
                   Row(
                     children: [
                       Icon(
@@ -274,7 +269,6 @@ class TarjetaVoluntariado extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      // El divisor vertical sutil separa el texto del botón interactivo
                       Container(width: 1, height: 14, color: Colors.black12),
                       const SizedBox(width: 2),
                       _buildBotonGuardar(uid),

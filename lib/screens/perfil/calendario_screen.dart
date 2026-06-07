@@ -17,10 +17,9 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  // Estructura simple: año-mes-día como String para vinculación rápida
   Map<String, List<Map<String, dynamic>>> _events = {};
 
-  // 🌟 Color corporativo unificado de tu marca
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
@@ -42,7 +41,7 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
         .where('voluntario_uid', isEqualTo: user!.uid)
         .where('estado', isEqualTo: 'Aceptado')
         .snapshots()
-        .first; // Usamos first para resolver el Future de forma limpia en la carga inicial
+        .first;
 
     Map<String, List<Map<String, dynamic>>> newEvents = {};
 
@@ -81,8 +80,7 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors
-          .grey[100], // Fondo limpio premium para que destaquen las tarjetas
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Mi Calendario",
@@ -95,7 +93,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
       ),
       body: Column(
         children: [
-          // 🌟 CONTENEDOR BLANCO ELEGANTE PARA EL CALENDARIO
           Container(
             color: Colors.white,
             child: TableCalendar(
@@ -113,7 +110,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
               },
               eventLoader: _getEventsForDay,
 
-              // Estilizado de la barra superior del mes
               headerStyle: HeaderStyle(
                 formatButtonVisible: false,
                 titleCentered: true,
@@ -132,7 +128,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
                 ),
               ),
 
-              // Estilizado de las celdas y días de la semana
               daysOfWeekStyle: DaysOfWeekStyle(
                 weekdayStyle: TextStyle(
                   color: Colors.grey[700],
@@ -146,10 +141,9 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
                 ),
               ),
 
-              // 🌟 REDISEÑO COMPLETO DE ESTILOS DEL CALENDARIO
               calendarStyle: CalendarStyle(
                 outsideDaysVisible:
-                    false, // Oculta días del mes anterior para limpiar la vista
+                    false, // Para ocultar los días del mes anterior y limpiar la vista
                 defaultTextStyle: const TextStyle(
                   fontSize: 14,
                   color: Colors.black87,
@@ -161,14 +155,12 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
                   fontWeight: FontWeight.w500,
                 ),
 
-                // Puntos decorativos de los eventos unificados
                 markerDecoration: BoxDecoration(
                   color: _colorCorporativo,
                   shape: BoxShape.circle,
                 ),
                 markersMaxCount: 3,
 
-                // Día Seleccionado por el usuario (Sólido y destacado)
                 selectedDecoration: BoxDecoration(
                   color: const Color.fromARGB(79, 85, 133, 238),
                   shape: BoxShape.circle,
@@ -179,7 +171,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
                   fontSize: 14,
                 ),
 
-                // Día Actual / Hoy (Elegante y traslúcido)
                 todayDecoration: BoxDecoration(
                   color: const Color.fromARGB(141, 18, 64, 164),
                   shape: BoxShape.circle,
@@ -195,7 +186,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
 
           const SizedBox(height: 14),
 
-          // Listado inferior expandible
           Expanded(child: _buildEventList()),
         ],
       ),
@@ -235,7 +225,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
     );
   }
 
-  // 🌟 DISEÑO DE TARJETA ADAPTADO AL ESTILO PREMIUM GLOBAL
   Widget _buildTarjetaCalendario(Map<String, dynamic> event) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -257,7 +246,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
           padding: const EdgeInsets.all(14),
           child: Row(
             children: [
-              // Contenedor de icono en formato pastel coordinado
               Container(
                 width: 44,
                 height: 44,
@@ -273,7 +261,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
               ),
               const SizedBox(width: 14),
 
-              // Textos informativos limpios y legibles
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +314,6 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
     String idPub =
         event['id_publicacion'] ?? event['voluntariado_uid_publicacion'];
 
-    // Mostrar feedback de carga sutil si la consulta tarda un instante
     final doc = await FirebaseFirestore.instance
         .collection('voluntariados')
         .doc(idPub)

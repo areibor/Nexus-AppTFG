@@ -12,13 +12,13 @@ class DetallePublicacionOrg extends StatelessWidget {
     required this.idPublicacion,
   });
 
-  // Color corporativo unificado de tu app
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo limpio unificado
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Gestión Voluntariado",
@@ -46,7 +46,7 @@ class DetallePublicacionOrg extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 1. TÍTULO DE LA PUBLICACIÓN DE GRAN FORMATO
+                // Título de la publicación/voluntariado
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 24, 20, 8),
                   child: Text(
@@ -62,10 +62,9 @@ class DetallePublicacionOrg extends StatelessWidget {
 
                 const SizedBox(height: 12),
 
-                // 2. SECCIÓN: ESTADO DE TURNOS
+                // Estado de turnos
                 _buildSubtituloSeccion("ESTADO DE LOS TURNOS"),
 
-                // LISTA HORIZONTAL DE TURNOS
                 SizedBox(
                   height: 125,
                   child: ListView.builder(
@@ -84,10 +83,9 @@ class DetallePublicacionOrg extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                // 3. SECCIÓN: CANDIDATOS INSCRITOS
+                // Candidatos inscritos
                 _buildSubtituloSeccion("CANDIDATOS INSCRITOS"),
 
-                // LISTADO DE VOLUNTARIOS (STREAM)
                 StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('inscripciones')
@@ -134,7 +132,6 @@ class DetallePublicacionOrg extends StatelessWidget {
                       );
                     }
 
-                    // AGRUPACIÓN POR VOLUNTARIO
                     Map<String, Map<String, dynamic>> candidatosAgrupados = {};
                     for (var doc in docs) {
                       final d = doc.data() as Map<String, dynamic>;
@@ -257,8 +254,8 @@ class DetallePublicacionOrg extends StatelessWidget {
                                   const SizedBox(width: 14),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start, // Todo alineado a la izquierda
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           infoCandidato['personal']['nombre'] ??
@@ -277,9 +274,7 @@ class DetallePublicacionOrg extends StatelessWidget {
                                             fontSize: 13,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 6,
-                                        ), // Espacio intermedio suave
+                                        const SizedBox(height: 6),
                                         Container(
                                           padding: const EdgeInsets.symmetric(
                                             vertical: 2,
@@ -322,8 +317,7 @@ class DetallePublicacionOrg extends StatelessWidget {
     );
   }
 
-  // --- COMPONENTES DE INTERFAZ AUXILIARES ---
-
+  // Componentes de interfaz (auxiliares)
   Widget _buildSubtituloSeccion(String titulo) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, bottom: 12),

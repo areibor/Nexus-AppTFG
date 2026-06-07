@@ -20,7 +20,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
   final user = FirebaseAuth.instance.currentUser;
   final ImagePicker _picker = ImagePicker();
 
-  // Color corporativo unificado
+  // Color Nexus
   final Color _colorCorporativo = const Color.fromARGB(255, 17, 71, 188);
 
   bool _turnoFinalizado(String fechaStr, String horarioStr) {
@@ -54,11 +54,9 @@ class _PerfilScreenState extends State<PerfilScreen> {
 
   double _calcularHorasDeTurno(String horario) {
     try {
-      // Limpiamos espacios por si acaso
       List<String> partes = horario.split(' - ');
       if (partes.length < 2) return 0;
 
-      // Parseamos hora y minuto directamente sin depender de fechas complejas
       List<String> horaMinInicio = partes[0].trim().split(':');
       List<String> horaMinFin = partes[1].trim().split(':');
 
@@ -66,22 +64,19 @@ class _PerfilScreenState extends State<PerfilScreen> {
           (int.parse(horaMinInicio[0]) * 60) + int.parse(horaMinInicio[1]);
       int minsFin = (int.parse(horaMinFin[0]) * 60) + int.parse(horaMinFin[1]);
 
-      // Si la hora de fin es menor, es que pasa de medianoche (ej: 23:00 a 02:00)
       if (minsFin < minsInicio) {
         minsFin += 24 * 60;
       }
 
       double resultadoHoras = (minsFin - minsInicio) / 60.0;
 
-      // 🌟 ESTE PRINT APARECERÁ EN TU CONSOLA DE VS CODE / ANDROID STUDIO
-      // Te dirá exactamente qué string está leyendo y qué número está calculando
       debugPrint(
-        "NEXO_DEBUG: Horario leído: '$horario' -> Horas calculadas: $resultadoHoras",
+        "NEXUS_DEBUG: Horario leído: '$horario' -> Horas calculadas: $resultadoHoras",
       );
 
       return resultadoHoras;
     } catch (e) {
-      debugPrint("NEXO_DEBUG: Error parseando horario: $e");
+      debugPrint("NEXUS_DEBUG: Error parseando horario: $e");
       return 0;
     }
   }
@@ -185,15 +180,15 @@ class _PerfilScreenState extends State<PerfilScreen> {
         String rol = userData['rol'] ?? 'Voluntario';
 
         return Scaffold(
-          backgroundColor: Colors.grey[100], // Fondo premium más limpio
+          backgroundColor: Colors.grey[100],
           body: SingleChildScrollView(
             child: Column(
               children: [
-                // 🌟 BANNER SUPERIOR CON DEGRADADO CORPORATIVO
+                // Banner de la pantalla de perfil
                 _buildBannerHeader(userData, rol),
                 const SizedBox(height: 24),
 
-                // 🌟 SECCIONES DE MENÚ SEGÚN EL ROL
+                // Secciones de menú según el rol con el que entres a la app
                 if (rol == 'Voluntario') ...[
                   _buildSeccionMenu([
                     _buildItemLista(
@@ -261,7 +256,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
     );
   }
 
-  // Widget del banner superior con estética moderna
   Widget _buildBannerHeader(Map<String, dynamic> data, String rol) {
     return Container(
       width: double.infinity,
@@ -271,9 +265,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
           end: Alignment.bottomRight,
           colors: [
             _colorCorporativo,
-            _colorCorporativo
-                .withBlue(220)
-                .withGreen(100), // Degradado sutil moderno
+            _colorCorporativo.withBlue(220).withGreen(100),
           ],
         ),
         borderRadius: const BorderRadius.only(
@@ -310,7 +302,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
     );
   }
 
-  // Construcción del avatar redondo con un botón flotante de edición integrado
   Widget _buildFotoPerfilConBoton(String? url) {
     return Stack(
       children: [
@@ -354,7 +345,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
     );
   }
 
-  // Subtítulos dinámicos según el tipo de rol cargados asíncronamente
   Widget _buildSubtituloDinamico(String rol) {
     if (rol == 'Voluntario') {
       return FutureBuilder<QuerySnapshot>(
@@ -383,12 +373,9 @@ class _PerfilScreenState extends State<PerfilScreen> {
                 doc.id;
             String? fecha = data['turno']?['fecha'];
             String? horario = data['turno']?['hora'];
-            String? estado =
-                data['estado']; // Obtenemos el estado de la inscripción
+            String? estado = data['estado'];
 
-            // 🌟 REGLA DE ORO TFG: Solo computan las causas donde el voluntario ha sido "Aceptado"
             if (fecha != null && horario != null && estado == 'Aceptado') {
-              // Creamos una clave única indestructible para este turno específico
               String llaveTurno = "${idPub}_${fecha}_$horario";
 
               if (!turnosUnicosProcesados.containsKey(llaveTurno)) {
@@ -400,7 +387,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
           double totalHoras = 0;
           int completados = 0;
 
-          // 🌟 CÁLCULO SOBRE LA LISTA DEPURADA
           for (var insc in turnosUnicosProcesados.values) {
             String fecha = insc['turno']['fecha'];
             String horario = insc['turno']['hora'];
@@ -448,7 +434,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
     }
   }
 
-  // Contenedor unificado para agrupar ítems del menú de forma elegante
   Widget _buildSeccionMenu(List<Widget> items) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -473,7 +458,6 @@ class _PerfilScreenState extends State<PerfilScreen> {
     );
   }
 
-  // Elemento individual de la lista de menú
   Widget _buildItemLista({
     required String texto,
     required IconData icono,

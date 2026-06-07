@@ -101,7 +101,7 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
     bool esOrganizacion = _rol == 'Organización';
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Fondo premium consistente con tu app
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "Editar Perfil",
@@ -112,7 +112,6 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
         foregroundColor: Colors.black87,
         elevation: 0,
         actions: [
-          // 🌟 BOTÓN DE ACCIÓN REESTILIZADO (Más visible y moderno)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: TextButton(
@@ -146,15 +145,14 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- BLOQUE 1: DETALLES DE LA CUENTA ---
+            // Detalles de la cuenta
             _buildSubtituloSeccion("DETALLES DE LA CUENTA"),
             _buildCardContenedor([
               _buildCampo(
                 label: "Email de la cuenta",
                 controller: TextEditingController(text: user?.email),
                 icono: Icons.email_outlined,
-                habilitado:
-                    false, // Siempre deshabilitado, estéticamente limpio
+                habilitado: false,
               ),
               _buildCampo(
                 label: "Teléfono de contacto",
@@ -167,7 +165,7 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
 
             const SizedBox(height: 20),
 
-            // --- BLOQUE 2: DATOS ESPECÍFICOS SEGÚN ROL ---
+            // Datos específicos según el rol con el que entres a la app
             _buildSubtituloSeccion(
               esOrganizacion ? "INFORMACIÓN DE LA ENTIDAD" : "DATOS PERSONALES",
             ),
@@ -201,7 +199,6 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
                   hintText: "DD/MM/AAAA",
                 ),
 
-                // 🌟 DROPDOWN GÉNERO REESTILIZADO DENTRO DE LA TARJETA
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: DropdownButtonFormField<String>(
@@ -258,8 +255,6 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
       ),
     );
   }
-
-  // --- COMPONENTES AUXILIARES DE DISEÑO ---
 
   Widget _buildSubtituloSeccion(String titulo) {
     return Padding(
@@ -322,13 +317,11 @@ class _EditarPerfilScreenState extends State<EditarPerfilScreen> {
             size: 22,
           ),
           filled: true,
-          // Cambiamos el color gris tosco por un blanco o gris muy sutil premium
           fillColor: habilitado ? Colors.white : Colors.grey[50],
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 14,
           ),
-          // Estilo de bordes redondeados modernos suavizados
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Colors.black12),

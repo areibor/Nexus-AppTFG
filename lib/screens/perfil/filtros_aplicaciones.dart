@@ -26,15 +26,12 @@ class _ModalFiltrosAplicacionesState extends State<FiltrosAplicaciones> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(28),
-        ), // Bordes más curvados premium
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Barra superior decorativa de arrastre
           Center(
             child: Container(
               width: 40,
@@ -60,7 +57,6 @@ class _ModalFiltrosAplicacionesState extends State<FiltrosAplicaciones> {
           const Divider(color: Colors.black12),
           const SizedBox(height: 8),
 
-          // 🌟 REDISEÑO EXCELENTE: Reemplazamos los checkboxes rígidos por CheckboxListTile estilizados con formas Material 3
           ...todosLosEstados.map((estado) {
             final bool seleccionado = temporalEstados.contains(estado);
 
@@ -69,7 +65,7 @@ class _ModalFiltrosAplicacionesState extends State<FiltrosAplicaciones> {
                 checkboxTheme: CheckboxThemeData(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
-                  ), // Checkbox redondeado moderno
+                  ),
                 ),
               ),
               child: Container(
