@@ -2,7 +2,7 @@
 
 Nexus es una aplicación móvil multiplataforma diseñada para optimizar, centralizar y potenciar la interacción entre la ciudadanía activa (voluntarios) y las organizaciones del tercer sector en la provincia de Valencia. Este repositorio aloja el código fuente completo correspondiente al Trabajo de Fin de Grado (TFG) para el Grado en Tecnología Digital y Multimedia de la Universitat Politècnica de València (UPV).
 
-## Características Principales
+## 🚀 Características Principales
 
 - **Entorno Bimodal Automatizado:** Interfaz adaptativa según el rol del usuario autenticado (Voluntario u Organización).
 - **Georreferenciación en Tiempo Real:** Integración cartográfica avanzada para la localización y proximidad de causas sociales.
@@ -16,7 +16,7 @@ Nexus es una aplicación móvil multiplataforma diseñada para optimizar, centra
 - **Backend / Infraestructura:** [Firebase](https://firebase.google.com/) (Cloud Firestore NoSQL, Firebase Authentication)
 - **Control de Versiones:** Git & GitHub
 
-## Estructura General del Proyecto
+## 📂 Estructura General del Proyecto
 
 ```text
 ## Estructura General del Proyecto
