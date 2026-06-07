@@ -19,9 +19,6 @@ Nexus es una aplicación móvil multiplataforma diseñada para optimizar, centra
 ## 📂 Estructura General del Proyecto
 
 ```text
-## Estructura General del Proyecto
-
-```text
 /lib
   ├── main.dart                                       # Punto de entrada y StreamBuilder de sesión
   ├── firebase_options.dart                           # Credenciales de compilación de las plataformas Android/iOS
